@@ -5,29 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Husovka SMP | TESTIK</title>
+    <title>Husovka SMP | CZ/SK</title>
 
     <style>
-        /* =========================
-           ZÁKLAD
-        ========================= */
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #3b3b3b;
+            background: #080b10;
             color: #ffffff;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
         /* =========================
-           NAVIGACE
+           NAVIGATION
         ========================= */
 
         nav {
@@ -35,40 +35,55 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 18px 40px;
+            z-index: 1000;
 
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 35px;
 
-            background: rgba(30, 30, 30, 0.85);
-            backdrop-filter: blur(10px);
+            padding: 18px 20px;
 
-            z-index: 1000;
+            background: rgba(8, 11, 16, 0.88);
+            backdrop-filter: blur(12px);
 
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .logo {
-            font-size: 22px;
+        nav a {
+            position: relative;
+
+            color: #d9d9d9;
+            text-decoration: none;
             font-weight: bold;
-            letter-spacing: 2px;
+
+            transition: 0.3s ease;
         }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 15px;
-            transition: 0.3s;
+        nav a::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+
+            width: 0;
+            height: 2px;
+
+            background: #7cff6b;
+
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
-            color: #bdbdbd;
+            color: #7cff6b;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         /* =========================
-           ÚVOD
+           HERO
         ========================= */
 
         .hero {
@@ -80,89 +95,148 @@
 
             text-align: center;
 
-            padding: 100px 20px 40px;
+            padding: 120px 20px 80px;
+
+            position: relative;
+            overflow: hidden;
 
             background:
-                radial-gradient(
-                    circle at center,
-                    #555555 0%,
-                    #3b3b3b 45%,
-                    #292929 100%
+                radial-gradient(circle at 50% 35%,
+                rgba(75, 255, 75, 0.13),
+                transparent 35%),
+                linear-gradient(
+                    180deg,
+                    #0c1118 0%,
+                    #080b10 100%
                 );
         }
 
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            width: 700px;
+            height: 700px;
+
+            border-radius: 50%;
+
+            background: radial-gradient(
+                circle,
+                rgba(80, 255, 90, 0.08),
+                transparent 70%
+            );
+
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
+
         .hero-content {
+            position: relative;
+            z-index: 2;
+
             max-width: 900px;
-            animation: fadeUp 1s ease;
+
+            animation: heroAppear 1s ease forwards;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 16px;
+            margin-bottom: 20px;
+
+            border: 1px solid rgba(124, 255, 107, 0.35);
+            border-radius: 999px;
+
+            background: rgba(124, 255, 107, 0.07);
+
+            color: #9aff8c;
+
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+
+            animation: badgeFloat 3s ease-in-out infinite;
         }
 
         .hero h1 {
-            font-size: clamp(55px, 10vw, 120px);
-
+            font-size: clamp(55px, 10vw, 115px);
             font-weight: 900;
-            letter-spacing: 8px;
-            text-transform: uppercase;
+
+            letter-spacing: 5px;
 
             background: linear-gradient(
                 90deg,
                 #ffffff,
-                #bdbdbd,
+                #8cff7b,
+                #ffffff,
+                #8cff7b,
                 #ffffff
             );
+
+            background-size: 300% auto;
 
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            animation: titleGlow 3s ease-in-out infinite;
+            animation:
+                titleShine 5s linear infinite,
+                titleAppear 1.2s ease forwards;
         }
 
         .hero p {
-            margin-top: 20px;
+            max-width: 750px;
 
-            color: #cfcfcf;
+            margin: 25px auto 0;
+
+            color: #b8bec8;
 
             font-size: 18px;
-            line-height: 1.7;
+        }
+
+        .hero p strong {
+            color: #ffffff;
         }
 
         /* =========================
-           TLAČÍTKA
+           BUTTONS
         ========================= */
 
         .buttons {
-            margin-top: 45px;
-
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            gap: 14px;
 
-            gap: 18px;
+            margin-top: 35px;
         }
 
         .btn {
             position: relative;
+            overflow: hidden;
 
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
 
-            padding: 15px 30px;
+            padding: 14px 23px;
 
-            color: white;
-            text-decoration: none;
-
-            font-weight: bold;
-
-            border: 1px solid #777;
             border-radius: 10px;
 
-            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            text-decoration: none;
+
+            font-weight: 800;
+            font-size: 14px;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            background: #151b23;
 
             transition:
-                transform 0.3s ease,
-                background 0.3s ease,
-                box-shadow 0.3s ease;
-
-            overflow: hidden;
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
         }
 
         .btn::before {
@@ -171,184 +245,207 @@
             position: absolute;
 
             top: 0;
-            left: -100%;
+            left: -120%;
 
-            width: 100%;
+            width: 80%;
             height: 100%;
 
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.2),
+                rgba(255,255,255,0.22),
                 transparent
             );
 
-            transition: 0.5s;
+            transform: skewX(-20deg);
+
+            transition: left 0.6s ease;
         }
 
         .btn:hover::before {
-            left: 100%;
+            left: 140%;
         }
 
         .btn:hover {
-            transform: translateY(-5px) scale(1.03);
-
-            background: rgba(255, 255, 255, 0.16);
-
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
         }
 
-        .btn:active {
-            transform: scale(0.96);
+        .btn-primary {
+            background: #39a92f;
+            border-color: #5dd653;
+        }
+
+        .btn-primary:hover {
+            background: #48bd3d;
         }
 
         /* =========================
-           SEKCE
+           IP BOX
+        ========================= */
+
+        .ip-box {
+            margin: 35px auto 0;
+
+            max-width: 650px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            padding: 10px;
+
+            border: 1px solid rgba(124,255,107,0.22);
+            border-radius: 14px;
+
+            background: rgba(255,255,255,0.04);
+
+            box-shadow: 0 0 30px rgba(70,255,70,0.05);
+        }
+
+        .ip-address {
+            padding-left: 15px;
+
+            font-family: monospace;
+            font-size: 17px;
+            font-weight: bold;
+
+            color: #8cff7b;
+
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            border: none;
+            cursor: pointer;
+
+            padding: 12px 17px;
+
+            border-radius: 9px;
+
+            background: #202831;
+            color: white;
+
+            font-weight: bold;
+
+            transition: 0.25s ease;
+        }
+
+        .copy-btn:hover {
+            background: #303b46;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           SECTIONS
         ========================= */
 
         section {
-            min-height: 100vh;
+            max-width: 1150px;
 
-            padding: 120px 20px 80px;
+            margin: auto;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .section-container {
-            width: 100%;
-            max-width: 1000px;
+            padding: 100px 20px;
         }
 
         .section-title {
-            font-size: 48px;
-
-            margin-bottom: 40px;
-
             text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            margin-bottom: 10px;
+
+            animation: sectionAppear 0.8s ease;
+        }
+
+        .section-title p {
+            color: #8f98a5;
         }
 
         /* =========================
-           INFO KARTA
+           CARDS
         ========================= */
 
-        .info-card {
-            background: rgba(255, 255, 255, 0.07);
+        .grid {
+            display: grid;
 
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
 
-            border-radius: 20px;
+            gap: 20px;
+        }
 
-            padding: 40px;
+        .card {
+            padding: 28px;
+
+            border-radius: 16px;
+
+            background: #10151c;
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+
+            animation: cardAppear 0.8s ease both;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+
+            border-color: rgba(124,255,107,0.35);
 
             box-shadow:
-                0 20px 50px rgba(0, 0, 0, 0.25);
-
-            backdrop-filter: blur(8px);
-
-            animation: fadeUp 1s ease;
+                0 15px 40px rgba(0,0,0,0.35),
+                0 0 20px rgba(124,255,107,0.05);
         }
 
-        .info-card h3 {
-            font-size: 28px;
-            margin-bottom: 25px;
+        .card h3 {
+            margin-bottom: 10px;
+
+            color: #8cff7b;
+
+            font-size: 20px;
         }
 
-        .info-card h4 {
-            font-size: 22px;
-
-            margin-top: 35px;
-            margin-bottom: 15px;
-        }
-
-        .info-card p {
-            color: #dddddd;
-
-            font-size: 17px;
-
-            line-height: 1.8;
-
-            margin-bottom: 18px;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: #ffffff;
+        .card p {
+            color: #aab2bd;
         }
 
         /* =========================
-           ODKAZY
-        ========================= */
-
-        .link-buttons {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 15px;
-
-            margin: 20px 0 30px;
-        }
-
-        .link-btn {
-            display: inline-block;
-
-            padding: 12px 20px;
-
-            border: 1px solid #777;
-            border-radius: 10px;
-
-            background: rgba(255, 255, 255, 0.08);
-
-            color: white;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-            transition: 0.3s ease;
-        }
-
-        .link-btn:hover {
-            background: rgba(255, 255, 255, 0.18);
-
-            transform: translateY(-3px);
-        }
-
-        /* =========================
-           ROZVRH
+           SCHEDULE
         ========================= */
 
         .schedule {
-            margin-top: 20px;
-
-            display: flex;
-            flex-direction: column;
-
-            gap: 10px;
+            margin-top: 35px;
         }
 
-        .schedule-row {
+        .schedule-item {
             display: flex;
-
             justify-content: space-between;
-            align-items: center;
 
-            padding: 13px 18px;
+            padding: 15px 18px;
+            margin-bottom: 8px;
 
-            background: rgba(255, 255, 255, 0.05);
+            border-radius: 9px;
 
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #11171e;
 
-            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
 
-            transition: 0.3s ease;
+            transition: 0.25s ease;
         }
 
-        .schedule-row:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .schedule-item:hover {
+            transform: translateX(5px);
+
+            border-color: rgba(124,255,107,0.3);
         }
 
         .day {
@@ -356,101 +453,115 @@
         }
 
         .time {
-            color: #cccccc;
+            color: #8cff7b;
+            font-weight: bold;
         }
 
         .off {
-            color: #999999;
+            color: #777f89;
         }
 
         /* =========================
-           IP SERVERU
+           RULES
         ========================= */
 
-        .server-ip {
-            margin-top: 15px;
+        .rules-grid {
+            display: grid;
 
-            padding: 18px 20px;
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
 
-            background: rgba(0, 0, 0, 0.25);
-
-            border: 1px solid rgba(255, 255, 255, 0.1);
-
-            border-radius: 12px;
-
-            font-family: monospace;
-
-            font-size: 18px;
-
-            text-align: center;
+            gap: 25px;
         }
 
-        /* =========================
-           PRAVIDLA
-        ========================= */
+        .rule-card {
+            padding: 30px;
 
-        #pravidla {
-            background: #343434;
-        }
+            border-radius: 16px;
 
-        #pravidla .info-card + .info-card {
-            margin-top: 30px;
-        }
+            background: #10151c;
 
-        .rule-intro {
-            padding: 18px 20px;
-
-            margin-bottom: 25px;
-
-            background: rgba(0, 0, 0, 0.18);
-
-            border-left: 3px solid #888;
-
-            border-radius: 10px;
-        }
-
-        .rule-item {
-            padding: 14px 18px;
-
-            margin-bottom: 10px;
-
-            background: rgba(255, 255, 255, 0.04);
-
-            border: 1px solid rgba(255, 255, 255, 0.07);
-
-            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.07);
 
             transition: 0.3s ease;
         }
 
-        .rule-item:hover {
-            background: rgba(255, 255, 255, 0.08);
+        .rule-card:hover {
+            transform: translateY(-6px);
 
+            border-color: rgba(124,255,107,0.3);
+        }
+
+        .rule-card h3 {
+            margin-bottom: 20px;
+
+            color: #8cff7b;
+
+            font-size: 24px;
+        }
+
+        .rule {
+            padding: 9px 0;
+
+            color: #c2c8d0;
+
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+
+            transition: 0.2s ease;
+        }
+
+        .rule:last-child {
+            border-bottom: none;
+        }
+
+        .rule:hover {
+            color: white;
             transform: translateX(4px);
         }
 
-        .rule-item:last-child {
-            margin-bottom: 0;
+        /* =========================
+           LINKS
+        ========================= */
+
+        .link {
+            color: #8cff7b;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        .rule-warning {
-            color: #eeeeee;
-
-            padding: 16px 18px;
-
-            margin-top: 20px;
-
-            background: rgba(255, 255, 255, 0.05);
-
-            border-radius: 10px;
+        .link:hover {
+            text-decoration: underline;
         }
 
         /* =========================
-           KONTAKT
+           CONTACT
         ========================= */
 
-        #kontakt {
-            background: #303030;
+        .contact-box {
+            text-align: center;
+
+            padding: 45px 25px;
+
+            border-radius: 18px;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(124,255,107,0.08),
+                    transparent 60%
+                ),
+                #10151c;
+
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .contact-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .contact-box p {
+            color: #aab2bd;
+            margin-bottom: 25px;
         }
 
         /* =========================
@@ -458,23 +569,22 @@
         ========================= */
 
         footer {
+            padding: 35px 20px;
+
             text-align: center;
 
-            padding: 30px 20px;
+            color: #68717d;
 
-            background: #222222;
+            border-top: 1px solid rgba(255,255,255,0.06);
 
-            color: #888888;
-
-            font-size: 14px;
+            background: #070a0e;
         }
 
         /* =========================
-           ANIMACE
+           ANIMATIONS
         ========================= */
 
-        @keyframes fadeUp {
-
+        @keyframes heroAppear {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -484,146 +594,167 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-
         }
 
-        @keyframes titleGlow {
+        @keyframes titleAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
 
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes titleShine {
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 300% center;
+            }
+        }
+
+        @keyframes pulseGlow {
             0%, 100% {
-                filter: drop-shadow(
-                    0 0 5px rgba(255, 255, 255, 0.15)
-                );
+                transform: scale(0.9);
+                opacity: 0.5;
             }
 
             50% {
-                filter: drop-shadow(
-                    0 0 20px rgba(255, 255, 255, 0.3)
-                );
+                transform: scale(1.15);
+                opacity: 1;
+            }
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% {
+                transform: translateY(0);
             }
 
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes sectionAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* =========================
-           MOBIL
+           MOBILE
         ========================= */
 
         @media (max-width: 700px) {
 
             nav {
-                padding: 15px 20px;
-            }
-
-            .logo {
-                font-size: 17px;
+                gap: 15px;
+                padding: 14px 10px;
             }
 
             nav a {
-                margin-left: 10px;
-                font-size: 13px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding-top: 130px;
             }
 
             .hero h1 {
-                font-size: 48px;
-                letter-spacing: 4px;
+                letter-spacing: 2px;
             }
 
             .hero p {
                 font-size: 16px;
             }
 
-            .buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 220px;
-                text-align: center;
-            }
-
-            .section-title {
-                font-size: 38px;
-            }
-
-            .info-card {
-                padding: 25px;
-            }
-
-            .info-card h3 {
-                font-size: 24px;
-            }
-
-            .info-card p {
-                font-size: 16px;
-                line-height: 1.7;
-            }
-
-            .schedule-row {
-                padding: 12px 14px;
-            }
-
-            .link-buttons {
+            .ip-box {
                 flex-direction: column;
             }
 
-            .link-btn {
-                text-align: center;
+            .ip-address {
+                padding: 10px;
             }
 
+            .copy-btn {
+                width: 100%;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .schedule-item {
+                font-size: 14px;
+            }
+        }
+
+        /* =========================
+           REDUCED MOTION
+        ========================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </head>
 
 <body>
 
-
-    <!-- =========================
-         NAVIGACE
-    ========================= -->
+    <!-- NAVIGATION -->
 
     <nav>
-
-        <div class="logo">
-            HUSOVKA SMP
-        </div>
-
-        <div>
-
-            <a href="#home">
-                Domů
-            </a>
-
-            <a href="#info">
-                Info
-            </a>
-
-            <a href="#pravidla">
-                Pravidla
-            </a>
-
-            <a href="#kontakt">
-                Kontakt
-            </a>
-
-        </div>
-
+        <a href="#home">Domů</a>
+        <a href="#info">Info</a>
+        <a href="#pravidla">Pravidla</a>
+        <a href="#discord">Discord</a>
+        <a href="#kontakt">Kontakt</a>
     </nav>
 
 
-    <!-- =========================
-         ÚVOD
-    ========================= -->
+    <!-- HERO -->
 
-    <section class="hero" id="home">
+    <header class="hero" id="home">
 
         <div class="hero-content">
 
-            <h1>
-                HUSOVKA SMP
-            </h1>
+            <div class="badge">
+                🧱 MINECRAFT SURVIVAL SERVER
+            </div>
+
+            <h1>HUSOVKA SMP</h1>
 
             <p>
-                Nejlepší survival server v celé CZ/SK komunitě! 🇨🇿🇸🇰
+                <strong>Nejlepší survival server v celé CZ/SK komunitě! 🇨🇿🇸🇰</strong>
                 <br>
                 Pokud se chcete připojit, připojte se na náš Discord server.
             </p>
@@ -631,559 +762,399 @@
             <div class="buttons">
 
                 <a
+                    class="btn btn-primary"
                     href="https://discord.gg/3FmUa3ysN"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="btn">
+                >
                     💬 PŘIPOJIT SE NA DISCORD
                 </a>
 
-                <a
-                    href="#info"
-                    class="btn">
-                    INFO
+                <a class="btn" href="#info">
+                    ℹ️ INFO
                 </a>
 
-                <a
-                    href="#pravidla"
-                    class="btn">
-                    PRAVIDLA
+                <a class="btn" href="#pravidla">
+                    📜 PRAVIDLA
                 </a>
 
-                <a
-                    href="#kontakt"
-                    class="btn">
-                    KONTAKT
-                </a>
+            </div>
+
+
+            <!-- IP -->
+
+            <div class="ip-box">
+
+                <div class="ip-address" id="serverIP">
+                    husovkasmp.hostify.cz
+                </div>
+
+                <button
+                    class="copy-btn"
+                    id="copyIP"
+                    onclick="copyIP()"
+                >
+                    📋 KOPÍROVAT IP
+                </button>
 
             </div>
 
         </div>
 
-    </section>
+    </header>
 
 
-    <!-- =========================
-         INFO
-    ========================= -->
+    <!-- INFO -->
 
     <section id="info">
 
-        <div class="section-container">
+        <div class="section-title">
+            <h2>ℹ️ Informace</h2>
 
-            <h2 class="section-title">
-                INFO
-            </h2>
+            <p>
+                Všechno důležité o Husovka SMP na jednom místě.
+            </p>
+        </div>
 
-            <div class="info-card">
 
-                <h3>
-                    👋 Ahoj všem!
-                </h3>
+        <div class="grid">
 
-                <p>
-                    Po dlouhé pauze se vracím s projektem
-                    <span class="highlight">
-                        Husovka SMP!
-                    </span>
-                    🎉
-                </p>
+            <div class="card">
+                <h3>🌍 Survival</h3>
 
                 <p>
-                    Vím, že v minulosti byly stížnosti na vedení serveru,
-                    OP a pluginy, takže tentokrát přichází změna.
-                    Server bude mít jen jeden plugin, který zpomalí progres,
-                    aby hráči neměli všechno hotové během pár minut.
+                    Čistý survival server zaměřený na hraní s komunitou,
+                    budování a společné projekty.
                 </p>
-
-                <p>
-                    Novým ownerem se stává
-                    <span class="highlight">
-                        Zuip (Vláďa)
-                    </span>,
-                    který bude zároveň jediný s OP a potřebnými permisemi.
-                    Já budu působit jako helper a budu se starat hlavně
-                    o nastavení a opravy Discordu a Minecraft serveru.
-                </p>
-
-                <p>
-                    Server bude fungovat formou předem domluvených session,
-                    přibližně
-                    <span class="highlight">
-                        3× týdně na 3 hodiny.
-                    </span>
-                </p>
-
-                <p>
-                    <span class="highlight">
-                        Pokud se vám projekt líbí a máte zájem, reagujte ✅!
-                    </span>
-                </p>
-
-
-                <!-- POVINNÝ MOD -->
-
-                <h4>
-                    🎙️ Povinný mod
-                </h4>
-
-                <p>
-                    🔗
-                    <span class="highlight">
-                        Simple Voice Chat (Fabric 1.21.11 – v2.5.36)
-                    </span>
-                </p>
-
-                <p>
-                    Každý hráč
-                    <span class="highlight">
-                        MUSÍ
-                    </span>
-                    mít tento mod nainstalovaný, jinak nebude
-                    připojení na server povoleno.
-                </p>
-
-                <div class="link-buttons">
-
-                    <a
-                        href="https://youtu.be/KYk8r5T8Arg?si=rVmf3seDAYtH7GH7"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="link-btn">
-                        🎥 Návod na instalaci
-                    </a>
-
-                    <a
-                        href="https://modrinth.com/plugin/simple-voice-chat"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="link-btn">
-                        🔗 Simple Voice Chat
-                    </a>
-
-                </div>
-
-
-                <!-- ROZVRH -->
-
-                <h4>
-                    📅 Kdy bude server běžet?
-                </h4>
-
-                <div class="schedule">
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Pondělí
-                        </span>
-
-                        <span class="time">
-                            17:00–20:00
-                        </span>
-                    </div>
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Úterý
-                        </span>
-
-                        <span class="off">
-                            OFF
-                        </span>
-                    </div>
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Středa
-                        </span>
-
-                        <span class="off">
-                            OFF
-                        </span>
-                    </div>
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Čtvrtek
-                        </span>
-
-                        <span class="off">
-                            OFF
-                        </span>
-                    </div>
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Pátek
-                        </span>
-
-                        <span class="off">
-                            OFF
-                        </span>
-                    </div>
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Sobota
-                        </span>
-
-                        <span class="time">
-                            16:00–20:00
-                        </span>
-                    </div>
-
-                    <div class="schedule-row">
-                        <span class="day">
-                            Neděle
-                        </span>
-
-                        <span class="time">
-                            16:00–20:00
-                        </span>
-                    </div>
-
-                </div>
-
-
-                <!-- SERVER -->
-
-                <h4>
-                    🔒 Mimo session je server uzamčený!
-                </h4>
-
-                <h4>
-                    💻 IP serveru
-                </h4>
-
-                <div class="server-ip">
-                    🕹️ husovkasmp.hostify.cz 👀
-                </div>
-
-
-                <!-- DALŠÍ INFO -->
-
-                <h4>
-                    🧱 Další info
-                </h4>
-
-                <p>
-                    📦 Verze:
-                    <span class="highlight">
-                        Minecraft 1.21.11 (Fabric)
-                    </span>
-                </p>
-
             </div>
 
+
+            <div class="card">
+                <h3>🎙️ Voice Chat</h3>
+
+                <p>
+                    Na serveru používáme Simple Voice Chat.
+                    Pro hraní je potřeba Fabric 1.21.11
+                    a Simple Voice Chat v2.5.36.
+                </p>
+
+                <br>
+
+                <a
+                    class="link"
+                    href="https://youtu.be/KYk8r5T8Arg?si=rVmf3seDAYtH7GH7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    📺 Návod na instalaci
+                </a>
+
+                <br><br>
+
+                <a
+                    class="link"
+                    href="https://modrinth.com/plugin/simple-voice-chat"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    🔗 Modrinth
+                </a>
+            </div>
+
+
+            <div class="card">
+                <h3>👥 Komunita</h3>
+
+                <p>
+                    Připoj se na náš Discord, seznam se s ostatními
+                    hráči a sleduj aktuální informace.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <h3>⚖️ Fair Play</h3>
+
+                <p>
+                    Žádné cheaty, X-Ray, exploitování bugů ani jiné
+                    nefér výhody.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- SCHEDULE -->
+
+        <div class="section-title schedule">
+            <h2>🗓️ Session</h2>
+
+            <p>
+                Server je dostupný během těchto časů.
+            </p>
+        </div>
+
+
+        <div class="schedule">
+
+            <div class="schedule-item">
+                <span class="day">Pondělí</span>
+                <span class="time">17:00–20:00</span>
+            </div>
+
+            <div class="schedule-item">
+                <span class="day">Úterý</span>
+                <span class="off">OFF</span>
+            </div>
+
+            <div class="schedule-item">
+                <span class="day">Středa</span>
+                <span class="off">OFF</span>
+            </div>
+
+            <div class="schedule-item">
+                <span class="day">Čtvrtek</span>
+                <span class="off">OFF</span>
+            </div>
+
+            <div class="schedule-item">
+                <span class="day">Pátek</span>
+                <span class="off">OFF</span>
+            </div>
+
+            <div class="schedule-item">
+                <span class="day">Sobota</span>
+                <span class="time">16:00–20:00</span>
+            </div>
+
+            <div class="schedule-item">
+                <span class="day">Neděle</span>
+                <span class="time">16:00–20:00</span>
+            </div>
+
+        </div>
+
+
+        <div class="contact-box" style="margin-top: 30px;">
+            🔒 Mimo session je server uzamčený!
+            <br><br>
+
+            <strong>IP:</strong>
+            husovkasmp.hostify.cz
+
+            <br>
+
+            <strong>Verze:</strong>
+            Minecraft 1.21.11 (Fabric)
+
+            <br>
+
+            <strong>Owner:</strong>
+            Zuip (Vláďa)
         </div>
 
     </section>
 
 
-    <!-- =========================
-         PRAVIDLA
-    ========================= -->
+    <!-- RULES -->
 
     <section id="pravidla">
 
-        <div class="section-container">
+        <div class="section-title">
 
-            <h2 class="section-title">
-                PRAVIDLA
-            </h2>
+            <h2>📜 Pravidla</h2>
+
+            <p>
+                Před hraním si prosím přečti všechna pravidla.
+            </p>
+
+        </div>
 
 
-            <!-- =========================
-                 DISCORD PRAVIDLA
-            ========================= -->
+        <div class="rules-grid">
 
-            <div class="info-card">
 
-                <h3>
-                    💬 DISCORD SERVER PRAVIDLA
-                </h3>
+            <!-- DISCORD -->
 
-                <div class="rule-intro">
+            <div class="rule-card">
 
-                    <p>
-                        ❗
-                        <span class="highlight">
-                            Neznalost pravidel neomlouvá.
-                        </span>
-                    </p>
+                <h3>💬 Discord</h3>
 
-                    <p>
-                        ❗ Pravidla se mohou kdykoliv změnit.
-                    </p>
-
-                    <p>
-                        ❗ Hledání kliček v pravidlech = trest.
-                    </p>
-
-                    <p>
-                        👑 Admin Team má vždy poslední slovo.
-                    </p>
-
+                <div class="rule">
+                    ❗ Neznalost pravidel neomlouvá.
                 </div>
 
-
-                <div class="rule-item">
-                    Nevhodné chování je na serveru zakázáno.
+                <div class="rule">
+                    🔄 Pravidla se mohou kdykoliv změnit.
                 </div>
 
-                <div class="rule-item">
-                    Žádné vulgarismy.
+                <div class="rule">
+                    ⚠️ Hledání kliček v pravidlech = trest.
                 </div>
 
-                <div class="rule-item">
-                    Žádný spam ani reklamy.
+                <div class="rule">
+                    👑 Admin Team má vždy poslední slovo.
                 </div>
 
-                <div class="rule-item">
-                    Zákaz pouštění soundboardu.
+                <div class="rule">
+                    ❌ Nevhodné chování je zakázáno.
                 </div>
 
-                <div class="rule-item">
-                    Zakázáno neoprávněné pronikání na server.
-                    Jakékoliv pokusy o porušení bezpečnosti
-                    nebo poškození serveru jsou přísně zakázány.
+                <div class="rule">
+                    ❌ Žádné vulgarismy.
                 </div>
 
-                <div class="rule-item">
-                    Spamování jakéhokoliv druhu
-                    (emoji, GIFů nebo zpráv) je na serveru zakázáno.
+                <div class="rule">
+                    ❌ Žádný spam ani reklamy.
                 </div>
 
-                <div class="rule-item">
-                    Sdílení NSFW obsahu, včetně explicitních obrázků,
-                    gore nebo jumpscarů, je na serveru přísně zakázáno.
+                <div class="rule">
+                    ❌ Zákaz pouštění soundboardu.
                 </div>
 
-                <div class="rule-item">
-                    Uživatelům je zakázáno obtěžování,
-                    ponižování nebo šikana ostatních,
-                    a to jak v textových, tak hlasových kanálech.
+                <div class="rule">
+                    ❌ Zákaz neoprávněného pronikání a security attacks.
                 </div>
 
-                <div class="rule-item">
-                    Zákaz obcházení trestů.
-                    Jakékoliv pokusy obejít bany, timeouty
-                    nebo jiné udělené tresty jsou zakázány.
+                <div class="rule">
+                    ❌ Spam emoji, GIFů a zpráv je zakázán.
                 </div>
 
-                <div class="rule-item">
-                    Neoprávněné kopírování nebo replikace
-                    obsahu serveru je zakázáno.
+                <div class="rule">
+                    ❌ NSFW obsah, explicitní obrázky, gore a jumpscary jsou zakázány.
                 </div>
 
-                <div class="rule-item">
-                    Je zakázáno posílat nebezpečné nebo škodlivé
-                    odkazy a soubory, například malware,
-                    phishingové odkazy nebo ransomware.
+                <div class="rule">
+                    ❌ Harassment, ponižování a bullying jsou zakázány.
                 </div>
 
-                <div class="rule-item">
-                    Sdílení nebo propagace extremistických ideologií,
-                    nenávistných skupin nebo nacistického obsahu
-                    je přísně zakázáno.
+                <div class="rule">
+                    ❌ Ban/timeout evasion je zakázán.
                 </div>
 
-                <div class="rule-item">
-                    Uživatelé jsou povinni poskytnout pravdivé informace
-                    administračnímu týmu při řešení porušení pravidel.
-                    Rozhodnutí administračního týmu je nutné respektovat.
+                <div class="rule">
+                    ❌ Neoprávněné kopírování nebo reprodukce obsahu.
                 </div>
 
-                <div class="rule-item">
-                    Reklama nebo propagace jiných serverů
-                    či produktů, včetně pozvánek na jiné servery,
-                    je zakázána.
+                <div class="rule">
+                    ❌ Nebezpečné odkazy a soubory jsou zakázány.
+                </div>
+
+                <div class="rule">
+                    ❌ Extremistické ideologie, hate groups a nacistický obsah jsou zakázány.
+                </div>
+
+                <div class="rule">
+                    🤝 Admin Teamu poskytuj pravdivé informace a respektuj jeho rozhodnutí.
+                </div>
+
+                <div class="rule">
+                    ❌ Reklamování jiných serverů, produktů nebo invite odkazů je zakázáno.
                 </div>
 
             </div>
 
 
-            <!-- =========================
-                 MINECRAFT PRAVIDLA
-            ========================= -->
+            <!-- MINECRAFT -->
 
-            <div class="info-card">
+            <div class="rule-card">
 
-                <h3>
-                    🎮 MINECRAFT SERVER PRAVIDLA
-                </h3>
+                <h3>⛏️ Minecraft</h3>
 
-
-                <div class="rule-intro">
-
-                    <p>
-                        ❗
-                        <span class="highlight">
-                            Neznalost pravidel neomlouvá.
-                        </span>
-                    </p>
-
-                    <p>
-                        ❗ Pravidla se mohou kdykoliv změnit.
-                    </p>
-
-                    <p>
-                        ❗ Hledání kliček v pravidlech = trest.
-                    </p>
-
-                    <p>
-                        👑 Admin Team má vždy poslední slovo.
-                    </p>
-
+                <div class="rule">
+                    ❗ Neznalost pravidel neomlouvá.
                 </div>
 
-
-                <!-- BASE / WORLD -->
-
-                <h4>
-                    🏠 BASE / WORLD
-                </h4>
-
-                <div class="rule-item">
-                    ❌ Zabíjení villagerů jakýmkoliv způsobem.
+                <div class="rule">
+                    🔄 Pravidla se mohou kdykoliv změnit.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Ničení nadzemních basí.
+                <div class="rule">
+                    🏠 Zabíjení villagerů jakýmkoliv způsobem je zakázáno.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Ničení vaultů.
+                <div class="rule">
+                    ❌ Ničení povrchových bazí je zakázáno.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Ničení spawnerů
-                    (Trial / Blaze / Cave).
+                <div class="rule">
+                    ❌ Ničení vaultů je zakázáno.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Stavění base v Netheru.
+                <div class="rule">
+                    ❌ Ničení spawnerů je zakázáno.
                 </div>
 
-                <div class="rule-item">
-                    ⚠️ Krádeže z nadzemních i podzemních basí jsou zakázány.
+                <div class="rule">
+                    ❌ Base v Netheru je zakázaná.
                 </div>
 
-                <div class="rule-item">
-                    ❌
-                    <span class="highlight">
-                        Griefing
-                    </span>
-                    je zakázán, především ničení povrchových základen.
+                <div class="rule">
+                    ⚠️ Krádeže z povrchových nebo podzemních bazí jsou zakázané.
                 </div>
 
-
-                <!-- MODY / CHEATY -->
-
-                <h4>
-                    🛠️ MODY / CHEATY
-                </h4>
-
-                <div class="rule-item">
-                    ❌ Cheaty a hacky
-                    (Xray, Wurst, Impact apod.).
+                <div class="rule">
+                    ❌ Griefing je zakázán, hlavně u povrchových bazí.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Dupování itemů a bug abuse.
+                <div class="rule">
+                    ❌ Cheaty a hacky jsou zakázané.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Lag machines.
+                <div class="rule">
+                    ❌ Xray, Wurst, Impact a podobné cheaty jsou zakázány.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Freecam.
+                <div class="rule">
+                    ❌ Item duping a bug abuse jsou zakázány.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Minimap modifikace poskytující nefér výhodu.
+                <div class="rule">
+                    ❌ Lag machines jsou zakázané.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Lootbeams a podobné modifikace poskytující výhodu.
+                <div class="rule">
+                    ❌ Freecam je zakázaný.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Anti-invis a podobné modifikace.
+                <div class="rule">
+                    ❌ Minimap mody poskytující nefér výhodu jsou zakázané.
                 </div>
 
-                <div class="rule-item">
-                    ❌ Jakékoliv jiné módy poskytující nefér výhodu.
+                <div class="rule">
+                    ❌ Lootbeams a podobné advantage mody jsou zakázané.
                 </div>
 
-                <div class="rule-item">
-                    🐛 Pokud objevíš bug nebo chybu,
-                    máš povinnost ji nahlásit Admin Teamu
-                    a nesmíš ji zneužívat.
+                <div class="rule">
+                    ❌ Anti-invis a podobné mody jsou zakázané.
                 </div>
 
-
-                <!-- CHOVÁNÍ -->
-
-                <h4>
-                    👥 CHOVÁNÍ
-                </h4>
-
-                <div class="rule-item">
-                    ❌ Toxicita, rasismus, hate nebo cílené
-                    obtěžování ostatních hráčů je zakázáno.
+                <div class="rule">
+                    ❌ Jakékoliv další mody poskytující nefér výhodu jsou zakázané.
                 </div>
 
-                <div class="rule-item">
-                    🤝 Chovejte se k ostatním hráčům s respektem
-                    a pomáhejte udržovat příjemnou komunitu.
+                <div class="rule">
+                    🐛 Bugy musí být nahlášeny a nesmí být zneužívány.
                 </div>
 
-
-                <!-- TÝMY -->
-
-                <h4>
-                    👥 TÝMY
-                </h4>
-
-                <div class="rule-item">
-                    🔹
-                    <span class="highlight">
-                        Maximální velikost týmu:
-                    </span>
-                    2 hráči.
+                <div class="rule">
+                    ❌ Toxicita, rasismus, hate a cílené obtěžování jsou zakázány.
                 </div>
 
-                <div class="rule-item">
-                    ⚔️
-                    <span class="highlight">
-                        Naked kill
-                    </span>
-                    je povolen pouze v rámci pravidel serveru.
+                <div class="rule">
+                    🤝 Respektuj ostatní hráče.
                 </div>
 
-
-                <!-- ADMIN TEAM -->
-
-                <h4>
-                    👑 ADMIN TEAM
-                </h4>
-
-                <div class="rule-item">
-                    Uživatelé jsou povinni poskytnout Admin Teamu
-                    pravdivé informace při řešení porušení pravidel.
+                <div class="rule">
+                    👥 Maximální velikost týmu je 2 hráči.
                 </div>
 
-                <div class="rule-item">
-                    Rozhodnutí Admin Teamu je nutné respektovat.
+                <div class="rule">
+                    ⚔️ Naked kill je povolen pouze v rámci pravidel serveru.
                 </div>
 
-                <div class="rule-warning">
-                    👑
-                    <span class="highlight">
-                        Admin Team má vždy poslední slovo.
-                    </span>
+                <div class="rule">
+                    👑 Admin Team má vždy poslední slovo.
                 </div>
 
             </div>
@@ -1193,65 +1164,95 @@
     </section>
 
 
-    <!-- =========================
-         KONTAKT
-    ========================= -->
+    <!-- DISCORD -->
+
+    <section id="discord">
+
+        <div class="contact-box">
+
+            <h2>💬 Discord</h2>
+
+            <p>
+                Připoj se na náš Discord a buď součástí Husovka SMP.
+            </p>
+
+            <a
+                class="btn btn-primary"
+                href="https://discord.gg/3FmUa3ysN"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                💬 PŘIPOJIT SE NA DISCORD
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
 
     <section id="kontakt">
 
-        <div class="section-container">
+        <div class="contact-box">
 
-            <h2 class="section-title">
-                KONTAKT
-            </h2>
+            <h2>📞 Kontakt</h2>
 
-            <div class="info-card">
+            <p>
+                Discord:
+                <strong>_nexicekk</strong>
+            </p>
 
-                <h3>
-                    💬 Kontakt
-                </h3>
-
-                <p>
-                    Chceš se na něco zeptat nebo se přidat k Husovka SMP?
-                    Napiš nám na Discordu!
-                </p>
-
-                <p>
-                    👤 Discord:
-                    <span class="highlight">
-                        _nexicekk
-                    </span>
-                </p>
-
-                <div class="buttons">
-
-                    <a
-                        href="https://discord.gg/3FmUa3ysN"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn">
-                        💬 DISCORD SERVER
-                    </a>
-
-                </div>
-
-            </div>
+            <a
+                class="btn btn-primary"
+                href="https://discord.gg/3FmUa3ysN"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                💬 DISCORD SERVER
+            </a>
 
         </div>
 
     </section>
 
 
-    <!-- =========================
-         PATIČKA
-    ========================= -->
+    <!-- FOOTER -->
 
     <footer>
-
-        © 2026 Husovka SMP
-
+        © 2026 Husovka SMP • Všechna práva vyhrazena
     </footer>
 
+
+    <!-- COPY IP SCRIPT -->
+
+    <script>
+
+        function copyIP() {
+
+            const ip = "husovkasmp.hostify.cz";
+            const button = document.getElementById("copyIP");
+
+            navigator.clipboard.writeText(ip)
+                .then(() => {
+
+                    const originalText = button.innerHTML;
+
+                    button.innerHTML = "✅ IP ZKOPÍROVÁNA!";
+
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                    }, 2000);
+
+                })
+                .catch(() => {
+
+                    alert("IP serveru: " + ip);
+
+                });
+        }
+
+    </script>
 
 </body>
 </html>
